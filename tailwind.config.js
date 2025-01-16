@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Roboto', 'sans-serif'],
+        Codystar: ['Codystar', 'sans-serif'],
+        Roboto: ['Roboto', 'sans-serif'],
       },
     },
   },
