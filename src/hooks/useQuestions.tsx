@@ -16,13 +16,13 @@ function reducer(state, action) {
         questions: action.payload,
         status: 'ready',
       };
-      break;
+
     case 'active':
       return {
         ...state,
         status: 'active',
       };
-      break;
+
     case 'answer': {
       const { score, questions, index } = state;
       const { points, correctOption } = questions[index];
@@ -34,7 +34,9 @@ function reducer(state, action) {
     }
     case 'dataFailed':
       return { ...state, status: 'error' };
-      break;
+
+    case 'nextQuestion':
+      return { ...state, index: state.index + 1, answer: 0 };
 
     default:
       throw new Error('Invalid action type');

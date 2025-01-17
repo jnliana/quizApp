@@ -10,7 +10,6 @@ import { StartScreen } from './components/StartScreen/StartScreen';
 function App() {
   const { state, dispatch } = useQuestions();
   const { questions, status, index, score, answer } = state;
-  // console.log('status', status);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,7 +24,7 @@ function App() {
     fetchData();
   }, [dispatch]);
   return (
-    <div className='bg-slate-900 min-h-screen p-6 flex flex-col'>
+    <div className='bg-slate-900 min-h-screen pt-10 flex flex-col'>
       <Header />
       <Main>
         {status === 'error' && <Error />}

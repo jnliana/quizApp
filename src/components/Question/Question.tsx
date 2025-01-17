@@ -1,3 +1,4 @@
+import { NextButton } from '../NextButton/NextButton';
 import { Options } from '../Options/Options';
 
 export const Question = ({ questionData, answer, dispatch }: any) => {
@@ -8,6 +9,10 @@ export const Question = ({ questionData, answer, dispatch }: any) => {
       <h4 className='text-white'>{question}</h4>
       <Options
         questionData={questionData}
+        answer={answer}
+        dispatch={dispatch}
+      />
+      <NextButton
         answer={answer}
         dispatch={dispatch}
       />
