@@ -6,10 +6,27 @@ import { useQuestions } from './hooks/useQuestions';
 import { Error } from './components/Error/Error';
 import { Loader } from './components/Loader/Loader';
 import { StartScreen } from './components/StartScreen/StartScreen';
+import { Progress } from './components/Progress/Progress';
+import { FinishScreen } from './components/FinishScreen/FinishScreen';
+import { Timer } from './components/Timer/Timer';
+import { NextButton } from './components/NextButton/NextButton';
 
 function App() {
   const { state, dispatch } = useQuestions();
-  const { questions, status, index, score, answer } = state;
+  const {
+    questions,
+    status,
+    index,
+    score,
+    answer,
+    highscore,
+    secondsRemaining,
+  } = state;
+  const numQuestion = questions ? questions.length : 0;
+  const maxPossiblePoints = questions
+    ? questions.reduce((accumulator, value) => accumulator + value.points, 0)
+    : 0;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,14 +48,44 @@ function App() {
         {status === 'loading' && <Loader />}
         {status === 'ready' && (
           <StartScreen
-            numQuestion={questions.length}
+            numQuestion={numQuestion}
             dispatch={dispatch}
           />
         )}
         {status === 'active' && (
-          <Question
-            questionData={questions[index]}
-            answer={answer}
+          <div className='w-2/3'>
+            <Progress
+              index={index}
+              numQuestions={numQuestion}
+              points={score}
+              maxPossiblePoints={maxPossiblePoints}
+            />
+            <Question
+              questionData={questions[index]}
+              answer={answer}
+              dispatch={dispatch}
+              numQuestion={numQuestion}
+              index={index}
+            />
+            <div className='flex justify-between'>
+              <Timer
+                dispatch={dispatch}
+                secondsRemaining={secondsRemaining}
+              />
+              <NextButton
+                answer={answer}
+                dispatch={dispatch}
+                numQuestion={numQuestion}
+                index={index}
+              />
+            </div>
+          </div>
+        )}
+        {status === 'finished' && (
+          <FinishScreen
+            points={score}
+            maxPossiblePoints={maxPossiblePoints}
+            highscore={highscore}
             dispatch={dispatch}
           />
         )}

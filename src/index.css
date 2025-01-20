@@ -35,3 +35,12 @@
 .animate-loader {
   animation: loader 1s infinite linear;
 }
+
+::-webkit-progress-bar {
+  background-color: '#ced4da';
+  border-radius: 100px;
+}
+::-webkit-progress-value {
+  background-color: #1098ad;
+  border-radius: 100px;
+}

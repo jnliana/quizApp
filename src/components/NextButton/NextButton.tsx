@@ -1,6 +1,6 @@
 import { Button } from '../Button/Button';
 
-export const NextButton = ({ dispatch, answer }: any) => {
+export const NextButton = ({ dispatch, answer, index, numQuestion }: any) => {
   const isDisabled = answer === 0;
   const Next = (
     <Button
@@ -15,12 +15,14 @@ export const NextButton = ({ dispatch, answer }: any) => {
     <Button
       handleClick={dispatch}
       disabled={isDisabled}
-      attr={{ type: 'nextQuestion' }}
+      attr={{ type: 'finish' }}
     >
-      Next
+      Finished
     </Button>
   );
 
-  const component = true ? Next : Finished;
+  const currentQuestion = index + 1;
+
+  const component = numQuestion > currentQuestion ? Next : Finished;
   return <div className='flex justify-end pt-3'>{component}</div>;
 };

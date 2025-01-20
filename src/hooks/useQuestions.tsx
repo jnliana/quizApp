@@ -6,6 +6,8 @@ const INITIAL_STATE: any = {
   index: 0,
   score: 0,
   answer: 0,
+  highscore: 0,
+  secondsRemaining: 200,
 };
 
 function reducer(state, action) {
@@ -37,6 +39,28 @@ function reducer(state, action) {
 
     case 'nextQuestion':
       return { ...state, index: state.index + 1, answer: 0 };
+    case 'restart':
+      return {
+        ...INITIAL_STATE,
+        questions: state.questions,
+        status: 'ready',
+        highscore: state.highscore,
+      };
+    case 'finish':
+      return {
+        ...state,
+        status: 'finished',
+        highscore:
+          state.score > state.highscore ? state.score : state.highscore,
+      };
+    case 'tick':
+      return {
+        ...state,
+        secondsRemaining: state.secondsRemaining
+          ? state.secondsRemaining - 1
+          : 0,
+        status: state.secondsRemaining === 0 ? 'finished' : state.status,
+      };
 
     default:
       throw new Error('Invalid action type');
